@@ -1,0 +1,50 @@
+ $.ajax ({
+    url : 'getTrainee.php',
+    method : 'post',
+    data : {id,id},
+    success :function(response)
+    {
+        let trainees = JSON.parse(response);
+        console.log(trainees);
+
+        let traineeId = [];
+        let traineeName = [];
+
+        for(let index=0 ; index < trainees.length ; index++)
+        {
+            traineeId[index] = trainees[index].trainee_id;
+            traineeName[index] = trainees[index].trainee_name;
+        }
+        console.log(traineeName);
+
+        let row = '<div class="row mt-3">';
+        row += '<div class="col-md-10">';
+        row += '<select name="trainee[]" class="form-select">';
+        row += '<option value=""selected disabled>Choose Trainee</option>';
+
+        for(let index = 0 ; index < traineeId.length ; index++)
+        {
+            row += '<option value="'+traineeId[index]+'">';
+            row+= traineeName[index];
+            row += '</option>';
+        }
+
+        row += '<?php';
+        row += '}';
+        row += '?>';
+        row += '</select>';
+
+        row += '</div>';
+        row += '<div class="col-md-2">';
+        row += '<button class="btn btn-danger removeTraineeBtn" id="addBtn">Remove</button>';
+        row += '</div>';
+        
+        row += '</div>';
+        row += '</div>';
+
+
+
+        $('.addRow').append(row);
+
+    }
+})
