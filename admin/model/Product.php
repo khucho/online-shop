@@ -22,6 +22,7 @@ class Product
         return $result;
     }
 
+
     public function createProduct($name,$description,$price,$date,$fileName,$category,$group)
     {
         $con = Database:: connect();

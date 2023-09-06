@@ -14,7 +14,7 @@ class AuthController extends Authentication
     public function authentication()
     {
         session_start();
-
+      
         if (!isset($_SESSION['id']))
         {
             header('location:../logIn.php');
@@ -84,6 +84,10 @@ class AuthController extends Authentication
     public function adminById($id)
     {
         return $this->getAdminById($id);
+    }
+    public function passChange($data,$userId)
+    {
+        return $this->changePassword($data,$userId);
     }
 }
 

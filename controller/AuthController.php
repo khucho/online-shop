@@ -11,6 +11,22 @@ include_once __DIR__.'/../vendor/PhpMailer/src/SMTP.php';
 
 class AuthController extends Authentication 
 {
+    public function auth()
+    {
+        session_start();
+
+        if (!isset($_SESSION['id']))
+        {
+            header('location:../logIn.php');
+        }
+        else 
+        {
+            if ($_SESSION['role'] == 'admin')
+            {
+                header('location:../logIn.php');
+            }
+        }
+    }
     public function userLists()
     {
         return $this->getUserList();
@@ -60,6 +76,11 @@ class AuthController extends Authentication
     public function userById($id)
     {
         return $this->getUserById($id);
+    }
+
+    public function editPassword($data,$userId)
+    {
+        return $this->updatePassword($data,$userId);
     }
 }
 

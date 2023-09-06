@@ -28,9 +28,6 @@ if(isset($_POST['submit']))
     if (empty($_POST['name']))
         $nameError = 'Please enter product name';
 
-    if (empty($_POST['description']))
-        $descriptionError = 'Please enter product description';
-
     if (empty($_POST['price']))
         $priceError = 'Please enter product price';
 

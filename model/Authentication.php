@@ -83,6 +83,30 @@ class Authentication
         }
         return $result;
     }
+
+
+
+
+public function updatePassword($data,$userId)
+    {
+        //db connect 
+        $con = Database::connect();
+
+        //sql 
+        $sql = 'update user set password = :password , confirm_password = :confirm_password where id = :id';
+        $statement = $con->prepare($sql);
+
+        $statement->bindParam(':id',$userId);
+        $statement->bindParam(':password',$data['password']);
+        $statement->bindParam(':confirm_password',$data['confirm_password']);
+
+        //fetch 
+        if ($statement->execute())
+        {
+            return true;
+        }
+        
+    }
 }
 
 ?>

@@ -65,4 +65,9 @@ class StockController extends Stock{
     {
         return $this->getOrderListInfo();
     }
+    // public function stockAvaliable($avaliable_stock)
+    // {
+    //     return $this->getStockAvaliable($avaliable_stock);
+    // }
+    
 }

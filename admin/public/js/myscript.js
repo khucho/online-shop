@@ -197,9 +197,26 @@ $(document).ready(function(){
             // console.log(month);
             var year = $('#year').val();
             $.ajax({
-                url : 'add_report.php',
+                url : 'add_month_report.php',
                 method: 'post',
                 data:{month: month,year : year},
+                success:function(response){
+                    reportDataDiv.innerHTML=response;
+                },
+                error: function(message){
+
+                }
+            })
+        })
+        $(document).on('click','.yearly_report',function(event){
+            event.preventDefault();
+            const reportDataDiv = document.getElementById('reportData');
+            // console.log(month);
+            var year = $('#year').val();
+            $.ajax({
+                url : 'add_year_report.php',
+                method: 'post',
+                data:{year : year},
                 success:function(response){
                     reportDataDiv.innerHTML=response;
                 },
@@ -337,6 +354,53 @@ $(document).ready(function(){
             })
         })
 
+        $(document).on('click','.btn_accept',function(event){
+            event.preventDefault();
+
+            let status = confirm('Are you sure want to accept this order?');
+
+            if(status)
+            {
+                let orderCode = $(this).parent().attr('id');
+
+                $.ajax({
+                    method:'post',
+                    url:'acceptOrder.php',
+                    data:{orderCode:orderCode},
+                    success:function(response){
+                        alert(response);
+                        location.href = 'order.php';
+                    },
+                    error:function(error){
+                        alert(error)
+                    }
+                })
+            }
+        })
+
+        $(document).on('click','.btn_decline',function(event){
+            event.preventDefault();
+
+            let status = confirm('Are you sure want to decline this order?');
+
+            if(status)
+            {
+                let orderCode = $(this).parent().attr('id');
+
+                $.ajax({
+                    method:'post',
+                    url:'declineOrder.php',
+                    data:{orderCode:orderCode},
+                    success:function(response){
+                        alert(response);
+                        location.href = 'order.php';
+                    },
+                    error:function(error){
+                        alert(error)
+                    }
+                })
+            }
+        })
 
         $.ajax({
             url : 'report_pie.php',

@@ -2,6 +2,8 @@
 include_once __DIR__ . '/layouts/user_navbar.php';
 include_once __DIR__ . '/controller/ProductController.php';
 include_once __DIR__. '/controller/CategoryController.php';
+include_once __DIR__.'/controller/reviewController.php';
+include_once __DIR__.'/controller/contactController.php';
 
 $product_cont = new ProductController();
 $products = $product_cont->getLatestProduct();
@@ -9,6 +11,17 @@ $products = $product_cont->getLatestProduct();
 $cat_con = new CategoryController();
 $categories = $cat_con->allCategories();
 
+$review_cont = new ReviewController();
+$reviews = $review_cont->getReview();
+
+$contact_cont = new ContactController();
+if (isset($_POST['submit'])) {
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $phone = $_POST['phone'];
+  $message = $_POST['message'];
+  $status = $contact_cont->addMessage($name, $email, $phone, $message);
+}
 ?>
 <style>
 
@@ -61,7 +74,7 @@ $categories = $cat_con->allCategories();
     foreach($categories as $category)
     {
     ?>
-    <div class="category d-flex justify-content-center align-items-center col-md-3">
+    <div class="category d-flex justify-content-center align-items-center col-md-3 p-3">
         <div class="animated-div" style="background-image: url('uploads/<?php echo $category['image']; ?>');">
           <a href="categoryProduct.php?id=<?php echo $category['id']; ?>" class="w-100"><?php echo $category['name']; ?></a>
         </div>
@@ -87,31 +100,50 @@ $categories = $cat_con->allCategories();
 
       <?php foreach ($products as $product) : ?>
 
-        <div class="col-10 col-sm-6 col-lg-3 col-md-4 py-3 d-flex justify-content-center">
-          <div class="card shop_card" style="width: 230px; height:330px;">
+        <div class="col-10 col-sm-6 col-lg-3 col-md-4 py-3 d-flex justify-content-center" >
 
-            <img src="uploads/<?php echo $product['image']; ?>" class="card-img-top img-fluid" name="image" alt="Image" style="width:230px; height:180px;">
-            <form action="" method="post">
+            <div class="card shop_card" style="width: 230px; height:330px;">
+              
+              <img src="uploads/<?php echo $product['image']; ?>"class="card-img-top img-fluid p-3" alt="Image" style="width:230px; height:180px;">
+            
               <div class="card-body text-center">
-                <h6 class="card-title" name="name"><?= $product['name'] ?></h6>
-                <div class="card-text">
-                  <p class="text-center px-5"><strong name="price"><?= $product['price'] ?></strong> MMK</p>
-                </div>
+
+                <h6 class="card-title"  ><?= $product['name'] ?></h6>
+                <p class="card-text"><strong ><?= $product['price'] ?></strong> MMK</p>
               </div>
+            
+                <div class="d-flex justify-content-center">
+                
 
-              <div class="d-flex justify-content-center m-auto">
+                <?php if (isset($cartLists) && in_array($product['id'],$cartLists)) : ?>
+                  <div class="mb-3 px-1 " id='<?php echo $product['id']; ?>'>
+                      <span class="btn btn-dark p-2">Already added</span>
+                  </div>
 
-                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                  <div class="mb-3 px-1 ">
+                    <a href="productDetail.php?productId=<?php echo $product['id'];?>">
+                      <button class="btn btn-dark">Detail</button>
+                    </a>
+                  </div>  
 
-                <div class="mb-3 me-2" id='<?php echo $product['id']; ?>'>
-                  <input type="submit" class="add_to_cart" name="addtocart" value="Add to Cart" style="background-color: #400d51;color:white; border:none; border-radius:5px;">
+                <?php else : ?>
+
+                  <div class="mb-3 px-1 " id='<?php echo $product['id']; ?>'>
+                    <button class="add_to_cart btn btn-dark">Add To Cart</button>
+                  </div>
+
+                  <div class="mb-3 px-1 ">
+                    <a href="productDetail.php?productId=<?php echo $product['id'];?>">
+                      <button class="btn btn-dark">Detail</button>
+                    </a>
+                  </div>
+
+                <?php endif;?>
+
                 </div>
+              
+            </div>
 
-                <a href="productDetails.php?id=<?= $product['id'] ?>" class="btn btn-info ms-2">Details</a>
-
-              </div>
-            </form>
-          </div>
         </div>
 
       <?php endforeach; ?>
@@ -124,7 +156,6 @@ $categories = $cat_con->allCategories();
 </section>
 
 <!-- end latest product Section -->
-
 
 <!-- why section -->
 
@@ -231,6 +262,78 @@ $categories = $cat_con->allCategories();
 
 <!-- end gift section -->
 
+<!--  review section -->
+<section class="review_section">
+
+<div class="backG content-container px-2 pt-2 mt-5 rounded-4">
+
+  <div id="reviewCarousel" class="my-5 carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <?php $carouselItemIndex = 0; ?>
+      <?php foreach ($reviews as $reviewIndex => $review) : ?>
+        <?php if ($reviewIndex % 3 === 0) : ?>
+          <div class="carousel-item<?= $reviewIndex === 0 ? ' active' : '' ?>">
+            <div class="row">
+            <?php endif; ?>
+            <div class="col-md-4 mb-5">
+              <div class="box1 rounded-4">
+                <div class="h-75 reviewText ">
+                  <p class="p-2"><span><img src="public/images/quote1.jpg" width="25px" height="30px" class="mx-1" alt=""></span><?= $review['review'] ?><span><img src="public/images/quote.jpg" width="25px" height="30px" class="mx-1" alt=""></span></p>
+                </div>
+                <div class="first">
+                  <div class="rating">
+                    <?php
+                    $ratingValue = $review['rating'];
+
+                    for ($j = 1; $j <= 5; $j++) {
+                      $starClass = $j <= $ratingValue ? 'filled' : 'empty';
+
+                      if ($starClass === 'filled') {
+                        echo '<img src="public/images/star1.jpg" class="mx-1" width="20px" height="20px" alt="Filled star" />';
+                      } else {
+                        echo '<img src="public/images/star2.jpg" class="mx-1" width="20px" height="20px" alt="Empty star" />';
+                      }
+                    }
+                    ?>
+                  </div>
+                </div>
+                <p class="username rounded-4"><?= $review['username'] ?></p>
+              </div>
+            </div>
+
+            <?php if (($reviewIndex + 1) % 3 === 0 || $reviewIndex === count($reviews) - 1) : ?>
+            </div>
+          </div>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    </div>
+    <a class="prevBtn" href="#reviewCarousel" role="button" data-slide="prev"></a>
+    <a class="nextBtn" href="#reviewCarousel" role="button" data-slide="next"></a>
+  </div>
+
+</div>
+<?php
+if (isset($_SESSION['id'])) {
+  $userId = $_SESSION['id'];
+  $hasOrder = $review_cont->hasOrdered($userId);
+
+  if (!isset($hasOrder)) {
+    echo '<div class="text-center">
+              <a href="review_form.php" class="btn btn-info">Write a review</a>
+          </div>';
+  } else {
+    echo '  <div class="d-flex justify-content-center" >
+    <div class="alert alert-info w-50">
+              <p class="mb-0 text-center">You need to have at least one order to write a review!!</p>
+            </div>
+            </div>';
+  }
+}
+?>
+
+</section>
+<!-- end review section -->
+<!-- contact section -->
 
 <!-- contact section -->
 
@@ -252,21 +355,21 @@ $categories = $cat_con->allCategories();
         </div>
       </div>
       <div class="col-md-6 col-lg-5 px-0">
-        <form action="#">
+        <form action="#" method="post">
           <div>
-            <input type="text" placeholder="Name" />
+            <input type="text" name="name" placeholder="Name" />
           </div>
           <div>
-            <input type="email" placeholder="Email" />
+            <input type="email" name="email" placeholder="Email" />
           </div>
           <div>
-            <input type="text" placeholder="Phone" />
+            <input type="text" name="phone" placeholder="Phone" />
           </div>
           <div>
-            <input type="text" class="message-box" placeholder="Message" />
+            <input type="text" name="message" class="message-box" placeholder="Message" />
           </div>
           <div class="d-flex ">
-            <button>
+            <button name="submit">
               SEND
             </button>
           </div>
@@ -275,6 +378,8 @@ $categories = $cat_con->allCategories();
     </div>
   </div>
 </section>
+
+<!-- end contact section -->
 
 <!-- end contact section -->
 

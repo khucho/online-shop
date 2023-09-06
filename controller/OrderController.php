@@ -10,9 +10,9 @@ class OrderController extends Order
         return $this->createOrder($userId,$order,$orderCode);
     }
 
-    public function addOrderDetail($userId,$orderCode)
+    public function addOrderDetail($userId,$orderCode,$townshipId)
     {
-        return $this->createOrderDetail($userId,$orderCode);
+        return $this->createOrderDetail($userId,$orderCode,$townshipId);
     }
 
     public function orderCode()

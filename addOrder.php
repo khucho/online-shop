@@ -7,6 +7,8 @@ include_once __DIR__.'/controller/CodeController.php';
 $userId = $_SESSION['id'];
 $orders = $_POST['data'];
 $vcCode = $_POST['vcCode'];
+$townshipId = $_POST['townshipId'];
+
 
 $code_controller = new CodeController();
 $order_controller = new OrderController();
@@ -14,22 +16,30 @@ $cart_controller = new CartController();
 
 
 $voucherCodes = $code_controller->codes();
-
+// die(var_dump($voucherCodes));
 if (!empty($voucherCodes))
 {
+    $usedCodeList = [];
+    $freeCodeList = [];
+
+    $u = 0;
+    $f = 0;
+
   foreach ($voucherCodes as $voucherCode )
   {
     if ($voucherCode['used_by_user'] != null)
     {
-        $usedCodeList[] += $voucherCode['code'];
+        $usedCodeList[$u] = $voucherCode['code'];
+        $u++;
     }
     else 
     {
-        $freeCodeList[] += $voucherCode['code'];
+        $freeCodeList[$f] = $voucherCode['code'];
+        $f++;
     }
   }
 }
-
+// die(var_dump($freeCodeList));
 if (in_array($vcCode,$usedCodeList))
 {
     echo 'This voucher code is already used';
@@ -45,12 +55,15 @@ else
         $usedVcCode = $code_controller->editVcCode($userId,$vcCode,$date);
 
         $orderCodes = $order_controller->orderCode();
-
+        $orderCodeList = [];
         if (!empty($orderCodes))
         {
+          
+            $oc = 0;
           foreach ($orderCodes as $orderCode )
           {
-            $orderCodeList[] += $orderCode['order_code'];
+            $orderCodeList[$oc] = $orderCode['order_code'];
+            $oc++;
           }
         }
 
@@ -76,7 +89,7 @@ else
 
             if ($addOrderStatus)
             {
-                $addOrderDetail = $order_controller->addOrderDetail($userId,$orderCode);
+                $addOrderDetail = $order_controller->addOrderDetail($userId,$orderCode,$townshipId);
 
                 if ($addOrderDetail)
                 {
@@ -93,11 +106,11 @@ else
 
         if ($removeCart)
         {
-            echo 'Your Order is success';
+            echo 'Your Order is success and wait for the confirmation email from our shop.';
         }
         else 
         {
-            echo 'Something went wrong';
+            echo 'Something went wrong with your order';
         }
     }
     else 

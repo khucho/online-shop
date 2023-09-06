@@ -271,4 +271,19 @@ class Stock{
             return $statement->fetchAll(PDO::FETCH_ASSOC);
         }
     }
+
+    // public function getStockAvaliable($avaliable_stock)
+    // {
+    //     $con = Database::connect();
+    //     $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+    //     $sql = "insert into product(avaliable) values(:avaliable) ";
+    //     $statement = $con->prepare($sql);
+    //     $statement->bindParam(':avaliable',$avaliable_stock);
+
+    //     if($statement->execute())
+    //     {
+    //         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    //     }
+    // }
 }

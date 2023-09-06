@@ -112,7 +112,7 @@ class Category{
         $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         //2.write sql
-        $sql = "select category.name as catname , sum(product.cat_id) as total 
+        $sql = "select category.name as catname , count(product.cat_id) as total 
                 from category join product
                 on category.id = product.cat_id
                 group by product.cat_id";

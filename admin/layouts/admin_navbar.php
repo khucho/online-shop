@@ -114,33 +114,39 @@ $userInfo = $auth_controller->adminById($id);
                             <i class="align-middle" data-feather="flag"></i> <span class="align-middle">Report</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="../dashboard/monthly_report.php"> <i class="align-middle" data-feather="shopping-bag"></i><span class="align-middle">Monthly Report</span></a></li>
-                            <li><a class="dropdown-item" href="../dashboard/yearly_report_line.php"><i class="align-middle" data-feather="database"></i> <span class="align-middle">Yearly Report</span></a></li>
+                            <li><a class="dropdown-item" href="../report/monthly_report.php"> <i class="align-middle" data-feather="shopping-bag"></i><span class="align-middle">Monthly Report</span></a></li>
+                            <li><a class="dropdown-item" href="../report/year_report.php"><i class="align-middle" data-feather="database"></i> <span class="align-middle">Yearly Report</span></a></li>
                         </ul>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="../city/city.php">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">City</span>
+                            <i class="align-middle" data-feather="download"></i> <span class="align-middle">City</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="../township/township.php">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Township</span>
+                            <i class="align-middle" data-feather="home"></i> <span class="align-middle">Township</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="../delivery/delivery.php">
-                            <i class="align-middle" data-feather="book"></i> <span class="align-middle">Delivery</span>
+                            <i class="align-middle" data-feather="truck"></i> <span class="align-middle">Delivery</span>
                         </a>
                     </li>
 
-
-                 
-
-
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="../review/review.php">
+                            <i class="align-middle" data-feather="archive"></i> <span class="align-middle">Review</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="../dashboard/contact.php">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Contact</span>
+                        </a>
+                    </li>
             </div>
         </nav>
 
@@ -162,7 +168,6 @@ $userInfo = $auth_controller->adminById($id);
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item mt-2" href="../dashboard/profile.php"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
 
                                 <a class="dropdown-item mt-2" href="../dashboard/changePassword.php"><i class="align-middle me-1" data-feather="key"></i> Change Password </a>
 

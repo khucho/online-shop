@@ -28,20 +28,20 @@ class Order
         }
     }
 
-    public function createOrderDetail($userId,$orderCode)
+    public function createOrderDetail($userId,$orderCode,$townshipId)
     {
         
         $conn = Database::connect();
 
         $sql = 'insert into order_detail
-                (user_id,order_code)
-                values (:user_id,:order_code)';
+                (user_id,order_code,township_id)
+                values (:user_id,:order_code,:township_id)';
 
         $statement = $conn->prepare($sql);
 
         $statement->bindParam(':user_id',$userId);
         $statement->bindParam(':order_code',$orderCode);
-
+        $statement->bindParam(':township_id',$townshipId);
 
 
         if ($statement->execute())

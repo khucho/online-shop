@@ -2,21 +2,20 @@
 include_once __DIR__.'/../../controller/ReportController.php';
 
 $rep_con = new ReportController();
-
-        $month = $_POST['month'];
-        // die(var_dump($month));
         $year = $_POST['year'];
-        $result = $rep_con->getStockReport($month,$year);
-        $result1 = $rep_con->getOrderReport($month,$year);
-        $status = $rep_con->totalPrice($month,$year);
-        $orders = $rep_con->totalOrderPrice($month,$year);
+        //  die(var_dump($year));
+        $result = $rep_con->getStockYearlyReport($year);
+        $result1 = $rep_con->getOrderYearlyReport($year);
+        $status = $rep_con->yearlyTotalPrice($year);
+        $orders = $rep_con->yearlyTotalOrderPrice($year);
+        $sales = $rep_con->monthlySale($year);
         // die(var_dump($result));
         // $users = $rep_con->getUser();
         // die(var_dump($users));
         $html = "";
-        $html .= "<div class='container mt-3'><div class='col-md-10'><div class= 'card text-center'><div class='card-header'><h2>လအလိုက် ဝင်ငွေ/ထွက်ငွေ စာရင်း</h2>";
+        $html .= "<div class='container mt-3'><div class='col-md-12'><div class= 'card text-center'><div class='card-header'><h2>နှစ်အလိုက် ဝင်ငွေ/ထွက်ငွေ စာရင်း</h2>";
         $html.="</div><div class='card-body'><div class='row mt-3'>";
-        $html.= "<table class = 'table table-dark'><tr><th>အရင်း</th><th>ရောင်းရငွေ</th></tr>";
+        $html.= "<table class = 'table table-dark'><tr><th>ထွက်ငွေ</th><th>ဝင်ငွေ</th></tr>";
         $html .= "";  
         $count = 1;    
         foreach($result as $report)
@@ -35,8 +34,8 @@ $rep_con = new ReportController();
         }
         $html .= "</table>";
         $html .= "</div>";
-        $html .= "<div class='row mt-3'>";
-        $html.= "<table class = 'table table-striped'><tr><th>ပစ္စည်း</th><th>အရင်း</th><th>ရောင်းရငွေ</th></tr>";
+        $html .= "<div class='row mt-3'><div class='col-md-6'>";
+        $html.= "<table class = 'table table-warning table-striped'><tr><th>ပစ္စည်း</th><th>ထွက်ငွေ</th><th>ဝင်ငွေ</th></tr>";
         $html .= "";  
         $count = 1;    
         foreach($status as $total)
@@ -61,6 +60,20 @@ $rep_con = new ReportController();
                 
         }     
         
+        $html .= "</tr>";         
+        }
+        $html .= "</table>";
+        $html .= "</div>";
+        $html .= "<div class='col-md-6'>";
+        $html.= "<table class = 'table table-danger table-striped'><tr><th>စဉ်</th><th>လအမည်</th><th>ဝင်ငွေ</th></tr>";
+        $html .= "";  
+        $count = 1;    
+        foreach($sales as $sale)
+        { 
+        $html .= "<tr>";
+        $html .= "<td>".$count++."</td>";
+        $html .= "<td>".date("F", mktime(0, 0, 0, $sale['month'], 1))."</td>";
+        $html .= "<td>".$sale['total']."</td>";
         $html .= "</tr>";         
         }
         $html .= "</table>";

@@ -1,7 +1,19 @@
 <?php
 include_once 'layouts/user_navbar.php';
-?>
+include_once __DIR__ . '/controller/ContactController.php';
 
+$product_cont = new ProductController();
+$products = $product_cont->getLatestProduct();
+
+$contact_cont = new ContactController();
+if (isset($_POST['submit'])) {
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $phone = $_POST['phone'];
+  $message = $_POST['message'];
+  $status = $contact_cont->addMessage($name, $email, $phone, $message);
+}
+?>
 <!-- contact section -->
 
 <section class="contact_section layout_padding">
@@ -24,22 +36,25 @@ include_once 'layouts/user_navbar.php';
       <div class="col-md-6 col-lg-5 px-0">
         <form action="#">
           <div>
-            <input type="text" placeholder="Name" />
+            <input type="text" name="name" placeholder="Name" />
           </div>
           <div>
-            <input type="email" placeholder="Email" />
+            <input type="email" name="email" placeholder="Email" />
           </div>
           <div>
-            <input type="text" placeholder="Phone" />
+            <input type="text" name="phone" placeholder="Phone" />
           </div>
           <div>
-            <input type="text" class="message-box" placeholder="Message" />
+            <input type="text" name="message" class="message-box" placeholder="Message" />
           </div>
           <div class="d-flex ">
-            <button>
+            <button type="submit">
               SEND
             </button>
           </div>
+          <?php if ($status) : ?>
+            <p>Your message has been sent</p>
+          <?php endif; ?>
         </form>
       </div>
     </div>

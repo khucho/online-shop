@@ -1,17 +1,26 @@
 <?php
 
-include_once __DIR__ . '/layouts/user_navbar.php';
-include_once __DIR__ . '/controller/CartController.php';
-
-$id = $_SESSION['id'];
-
-$cart_controller = new CartController();
-$carts = $cart_controller->cartDetail($id);
-
-
-$total = 0;
-foreach ($carts as $cart) {
-    $total += ($cart['qty'] * $cart['product_price']);
+include_once __DIR__ . '/layouts/user_navbar.php'; 
+include_once __DIR__ . '/controller/CartController.php'; 
+include_once __DIR__.'/controller/CityController.php'; 
+include_once __DIR__.'/controller/TownshipController.php'; 
+ 
+$id = $_SESSION['id']; 
+ 
+$cart_controller = new CartController(); 
+$city_controller = new CityController(); 
+$township_controller = new TownshipController(); 
+ 
+$cities = $city_controller->cityList(); 
+ 
+$townships = $township_controller->townshipList(); 
+ 
+$carts = $cart_controller->cartDetail($id); 
+ 
+ 
+$total = 0; 
+foreach ($carts as $cart) { 
+    $total += ($cart['qty'] * $cart['product_price']); 
 }
 
 
@@ -93,6 +102,22 @@ foreach ($carts as $cart) {
         </div>
 
         <div class="col-md-4 offset-1">
+        <div class="mb-3"> 
+                <h5 class="bg-dark text-white text-center">Township For Delivery</h5> 
+                <select name="township" id="township"> 
+                    <option value="" selected disabled>Select Your Township</option> 
+                    <?php foreach($townships as $township) 
+                    { 
+                    ?> 
+                    <option value="<?php echo $township['id'] ?>"> 
+                    <?php echo $township['name'] ?> 
+                    </option> 
+                    <?php  
+                    } 
+                    ?> 
+                </select> 
+            </div>
+          <div class="">
             <h2 class="section-title text-center bg-dark text-white text-uppercase mb-3"><span class="pr-3">Cart Summary</span></h2>
 
             <div class="bg-light p-30 my-3">
@@ -118,6 +143,7 @@ foreach ($carts as $cart) {
                     <button name="checkOut" id="orderBtn" class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
                 </div>
             </div>
+          </div>
         </div>
         <!-- </form> -->
     </div>

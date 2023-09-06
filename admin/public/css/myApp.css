@@ -7,17 +7,24 @@
 
 
 body {
-   display: flex;
+    display: flex;
+    position: relative; 
    align-items: center;
    justify-content: center;
    min-height: 100vh;
+   background-image: url("../images/background1.jpg");
+   background-size: contain;
+   background-position: center;
 }
 
 .wrapper {
+    position:fixed;
     width: 450px;
     padding: 40px 30px 50px 30px;
     border-radius: 5px;
-    background: white;
+    background: #fffff0;
+    border:1px solid #ffbfea;
+    box-shadow: 1px 1px 1px 1px #ffbfea,1px 1px 1px 1px #ffbfea inset;
 }
 
 .wrapper header {
@@ -25,6 +32,8 @@ body {
     font-weight: 600;
     text-align: center;
 }
+
+
 
 
 

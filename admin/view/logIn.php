@@ -63,7 +63,7 @@ $admins = $auth_controller->adminList();
 
 
 </head>
-<body class="bg-primary">
+<body>
     
     <div class="wrapper">
         <header>Log In</header>
@@ -96,7 +96,7 @@ $admins = $auth_controller->adminList();
             </div>
 
             <div class="d-flex justify-content-center">
-                <input type="submit" name="submit" value="LogIn" class="btn btn-primary w-100">
+                <input type="submit" name="submit" value="LogIn" class="btn btn-danger w-100">
             </div>
 
             <div class="pass-txt d-flex justify-content-center mt-2">

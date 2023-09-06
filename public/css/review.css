@@ -1,0 +1,201 @@
+.review{
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .form{
+    margin-bottom: 15px;
+  }
+  
+  label{
+    margin-bottom: 5px;
+  }
+  
+  input{
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  textarea{
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 60px;
+    resize: vertical;
+  }
+  
+  input::placeholder,
+  textarea::placeholder{
+  color: #999999;
+  font-style: italic;
+  }
+  
+  button{
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 5px;  
+    cursor: pointer;  
+  }
+
+  /* review box */
+ .img img{
+    border-radius: 50%;
+    width: 85px;
+    height: 95px;
+    margin-left: 38%;
+}
+  
+.box1{
+    border:1px solid #ffbfea;
+    box-shadow: 1px 1px 1px 1px #ff55bb, 1px 1px 1px 1px #ff55bb inset;
+    background-color:#fffff0;
+    border-radius: 5px;
+    margin: 0 10px;
+    padding: 20px;
+    height: 400px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.username{
+    text-align: center;
+    background-color: rgb(28, 28, 28);
+    color: #fffff8;
+    font-size: 20px;
+    height: 2rem;
+}
+
+p{
+    text-align: justify;
+}
+
+.rating {
+    display: inline-block;
+}
+  
+.rating label{
+    float: right;
+    cursor: pointer;
+    color: #ddd;
+}
+  
+.rating input:checked ~ label{
+    color: #ffca08;
+}
+  
+.rating label:hover,
+.rating label:hover ~ label{
+    color: #ffca08;
+}
+  
+.rating input {
+    display: none;
+}
+
+.rating label:before {
+    content: '\2605';
+    font-size: 24px;
+}
+
+.first {
+    display: flex;
+    justify-content: center;
+}  
+
+.backG {
+    /* background-color: #ffbfea; */
+    height: auto;
+}
+
+.reviewText {
+    background-color: #ffbfea;
+    border: 1px solid black;
+}
+.message-box {
+    border: 2px solid #3498db;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.message-text {
+    text-align: center;
+    color: #3498db;
+    font-weight: bold;
+}
+#reviewCarousel {
+    margin: 50px;
+}
+
+/* Style for the carousel control buttons */
+.prevBtn {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    transform: translateY(-50%);
+     background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 30%;
+    color: rgb(245, 59, 59);
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nextBtn {
+    width: 50px;
+    height: 50px;
+    position: absolute; 
+    top: 40%;
+    right: 0;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 30%;
+    color: rgb(245, 59, 59);
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.prevBtn::before {
+    content: "\2190"; /* Unicode arrow left symbol for prev, "\2192" for next */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.nextBtn::before {
+    content: "\2192"; /* Unicode arrow left symbol for prev, "\2192" for next */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+  

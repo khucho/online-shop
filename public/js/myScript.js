@@ -154,6 +154,8 @@ $(document).ready(function(){
 
     $('#orderBtn').on('click',function(){
         
+        townshipId = $('#township').val()
+
         $data = [];
 
         $('#itemTable #itemData').each(function(index,row)
@@ -170,38 +172,49 @@ $(document).ready(function(){
            }
         })
         
-        if ($data.length == 0)
+        if (townshipId == null)
         {
-            
-            alert('Please select item');
+            alert('Select township for delivery')
         }
         else 
         {
-            $vcCode = $('#voucher_code').val();
-
-            $vcCode = $('#voucher_code').val();
-            if ($vcCode == '')
+            if ($data.length == 0)
             {
-                alert('Enter Voucher Code')
+            
+                alert('Please select item');
             }
             else 
             {
-                $.ajax({
-                    method: 'post',
-                    url: 'addOrder.php',
-                    data : {data:$data,vcCode:$vcCode},
-                    success: function(response)
+                $vcCode = $('#voucher_code').val();
+
+                if ($vcCode == '')
+                {
+                    alert('Enter Voucher Code')
+                }
+                else 
+                {
+                    let status = confirm('Are you sure want to order?')
+                    
+                    if (status)
                     {
-                        alert(response);
-                        location.href = 'cart.php';
-                    },
-                    error:function(error){
-                        alert(error);
+                        $.ajax({
+                            method: 'post',
+                            url: 'addOrder.php',
+                            data : {data:$data , vcCode:$vcCode , townshipId:townshipId},
+                            success: function(response)
+                            {
+                                alert(response);
+                                location.href = 'cart.php';
+                            },
+                            error:function(error){
+                                alert(error);
+                            }
+                        })
                     }
-                })
-            }
+                }
     
             
+            }
         }
 
         

@@ -7,8 +7,11 @@ $code_controller = new CodeController();
 $codes = $code_controller->codeList();
 
 if ($codes != null) {
+    $codeList = [];
+    $c = 0;
     foreach ($codes as $code) {
-        $codeList[] += $code['code'];
+        $codeList[$c] = $code['code'];
+        $c++;
     }
 }
 

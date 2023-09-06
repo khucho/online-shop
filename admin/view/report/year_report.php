@@ -14,7 +14,7 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="card" style="margin-left:40px;">
-                            <div class="card-header">Monthly Report</div>
+                            <div class="card-header">Yearly Report</div>
                             <div class="card-body">
                                 <form id="reportForm" method="post">
                                     <div class="row">
@@ -29,28 +29,9 @@
                                                         ?>
                                                     </select>
                                                 </div>
-                                                <div class="col-3 form-group">
-                                                    <label for="selectedValue">Month:</label>
-                                                    <select id="month" name="month">
-                                                        <?php
-                                                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-                                                        for ($month = 1; $month <= 12; $month++) {
-                                                            if(isset($_POST['month']) && $_POST['month'] == $result['month'])
-                                                            {
-                                                                echo "<option value='$month' selected>".$months[$month - 1]."</option>";
-                                                            }
-                                                            else
-                                                            {
-                                                                echo "<option value='$month' >".$months[$month - 1]."</option>";
-                                                            }
-                                                            
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
                                             
                                                 <div class="col-3 form-group">
-                                                    <button type="submit" name = "submit" class="report" style="background-color:darkslategrey; color:floralwhite;">Generate Report</button>
+                                                    <button type="submit" name = "submit" class="yearly_report" style="background-color:darkslategrey; color:floralwhite;">Generate Report</button>
                                                 </div>        
                                     </div>  
                                 </form>

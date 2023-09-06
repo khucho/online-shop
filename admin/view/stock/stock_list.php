@@ -48,7 +48,8 @@ $stockOut = $stock_con->getOrderList();
 
                                 $avaliable_stock = $stock_in - $stock_out;
                                 echo "<td>" . $avaliable_stock . "</td>";
-                                // die(var_dump($avaliable_stock));
+                                // $astock = $stock_con->stockAvaliable($avaliable_stock);
+                                // die(var_dump($astock));
                                 // echo "<td>".$stock['price']."</td>";
                                 // echo "<td>".$stock['date']."</td>";
                                 echo "</tr>";
